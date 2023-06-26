@@ -17,7 +17,7 @@ def test():
     # Crear una instancia de la clase Combinar
     comb = Combinar
 
-    # Llamar al método Combinar pasando l1 como argumento
+    # Llamar al método Combinar pasando l1 y l2 como argumento
     comb.Combinar().combinar(l1, l2).printValues()
 
 test()
