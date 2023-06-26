@@ -16,13 +16,20 @@ class SimplyList:
 
         current = self.head
         before = None
+
         if current is None:
             self.head = node
         else:
-            while current.tpnext is not None:
-                if current.tpnext.value < current.value:
-                    current = current.tpnext
-            current.tpnext = node
+            while current is not None and current.value < value:
+                before = current
+                current = current.tpnext
+
+            if before is None:
+                node.tpnext = self.head
+                self.head = node
+            else:
+                node.tpnext = current
+                before.tpnext = node
 
     def getIndex(self, i):
         counter = 0
@@ -56,13 +63,10 @@ class SimplyList:
             print(current.value)
             current = current.tpnext
 
-    def sort(self):
+    def length(self):
         current = self.head
-        before = None
-        while current.tpnext is not None:
-            if current.value > current.tpnext.value:
-                before = current.value
-                current.value = current.tpnext.value
-                current.tpnext.value = before
+        length = 0
+        while current is not None:
+            length += 1
             current = current.tpnext
-        
+        return length
