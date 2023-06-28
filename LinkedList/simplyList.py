@@ -8,11 +8,16 @@ from LinkedList.Node.node import Node
 
 
 class SimplyList:
+
     def __init__(self):
         self.head = None
 
-    def insert(self, value):
-        node = Node(value)
+    def insert(self, value, name=None):
+
+        if name is not None:
+            node = Node(name, value)
+        else:
+            node = Node(None, value)
 
         current = self.head
         before = None
@@ -31,7 +36,7 @@ class SimplyList:
                 node.tpnext = current
                 before.tpnext = node
 
-    def getIndex(self, i):
+    def getindex(self, i):
         counter = 0
         current = self.head
         while counter < i and current is not None:
@@ -42,27 +47,36 @@ class SimplyList:
 
         return current.value
 
-    def delete(self, v):
+    def delete(self, name):
         current = self.head
-        counter = 0
         before = None
-        while current is not None and current.value != v:
+
+        while current is not None and current.name != name:
+            before = current
             current = current.tpnext
 
         if current is None:
             raise ReferenceError
 
         if before is None:
-          self.head = current.tpnext
+            self.head = current.tpnext
         else:
             before.tpnext = current.tpnext
 
-    def printValues(self):
+    def printvalues(self):
         current = self.head
         while current is not None:
             print(current.value)
             current = current.tpnext
 
+    def printnames(self, name='Nombre', valor='Valor'):
+        current = self.head
+        while current is not None:
+            print(f"{name} : {current.name}  {valor} : {current.value} ")
+            current = current.tpnext
+
+
+    @property
     def length(self):
         current = self.head
         length = 0
@@ -70,3 +84,26 @@ class SimplyList:
             length += 1
             current = current.tpnext
         return length
+
+    def get_value_by_name(self, name):
+        current = self.head
+        while current is not None:
+            if name == current.name:
+                return current.value
+            current = current.tpnext
+
+    def set_value_by_name(self, name, value):
+        current = self.head
+        while current is not None:
+            if name == current.name:
+                current.value = value
+            current = current.tpnext
+
+    def search_name(self, name):
+        current = self.head
+        state = False
+        while current is not None:
+            if name == current.name:
+                state = True
+            current = current.tpnext
+        return state
